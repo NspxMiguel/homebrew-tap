@@ -1,6 +1,6 @@
 cask "task-manager" do
-  version "1.1.0"
-  sha256 "f593d98651b03887e711401dba087617eaa5be165ba219fe5e7b4289e7232ad7"
+  version "1.1.1"
+  sha256 "df8d034ce7d571e7a5fa26b423e0c4f939f423def287590d7afd2a10efba5f82"
 
   # Baixa o CODIGO-FONTE (nao um binario pronto) e compila na maquina de
   # quem instala. Build local = sem atributo de "quarantine" no binario
@@ -84,6 +84,10 @@ cask "task-manager" do
       </plist>
     XML
 
+    # Arquivos copiados do tarball baixado (como o .icns) podem carregar o
+    # atributo de quarentena mesmo depois de compilados/copiados — limpa tudo
+    # antes de assinar pra garantir que nenhuma parte do bundle fique marcada.
+    system_command "/usr/bin/xattr", args: ["-cr", app_path]
     system_command "/usr/bin/codesign", args: ["--force", "--deep", "-s", "-", app_path]
 
     ohai "Pronto! Task Manager compilado e instalado em #{app_path}"
