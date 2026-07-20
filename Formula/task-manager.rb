@@ -14,7 +14,7 @@ class TaskManager < Formula
   # da internet (o atributo de quarantine so e' aplicado a arquivos baixados,
   # nao ao binario gerado localmente pelo compilador).
   def install
-    system "swift", "build", "-c", "release"
+    system "swift", "build", "-c", "release", "--disable-sandbox"
 
     app = prefix/"TaskManager.app"
     (app/"Contents/MacOS").mkpath
