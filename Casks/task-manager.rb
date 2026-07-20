@@ -7,7 +7,7 @@ cask "task-manager" do
   desc "Gerenciador de tarefas nativo para macOS, estilo Windows 11"
   homepage "https://github.com/spxmiguel/mac-task-manager"
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "TaskManager.app"
 
