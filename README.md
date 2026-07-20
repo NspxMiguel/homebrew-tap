@@ -6,9 +6,11 @@ Tap pessoal do Homebrew.
 
 ```bash
 brew tap spxmiguel/tap
-brew install --cask task-manager
+brew install task-manager
 ```
 
-Depois é só abrir o app pela primeira vez (Spotlight ou `/Applications/TaskManager.app`) — o atalho global padrão é `⌘⎋` (Cmd+Esc), configurável dentro do app na aba Ajustes.
+Compila direto na sua máquina (precisa só das Command Line Tools do Xcode, grátis — `xcode-select --install` se ainda não tiver). Por ser um build local, o Gatekeeper não bloqueia como "desenvolvedor não identificado", diferente de baixar um `.app` pronto sem assinatura da Apple.
+
+Depois é só abrir pelo Spotlight ou `/Applications/TaskManager.app` — o atalho global padrão é `⌘⎋` (Cmd+Esc), configurável dentro do app na aba Ajustes.
 
 Código-fonte: https://github.com/spxmiguel/mac-task-manager
