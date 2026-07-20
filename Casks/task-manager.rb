@@ -1,6 +1,6 @@
 cask "task-manager" do
-  version "1.0.2"
-  sha256 "7885a5a9b53d87f5f2fd6df622ffa8f169105d1c3cdcfa86daf39f8c213a83cd"
+  version "1.1.0"
+  sha256 "f593d98651b03887e711401dba087617eaa5be165ba219fe5e7b4289e7232ad7"
 
   # Baixa o CODIGO-FONTE (nao um binario pronto) e compila na maquina de
   # quem instala. Build local = sem atributo de "quarantine" no binario
@@ -51,6 +51,7 @@ cask "task-manager" do
     FileUtils.mkdir_p("#{app_path}/Contents/MacOS")
     FileUtils.mkdir_p("#{app_path}/Contents/Resources")
     FileUtils.cp("#{source_dir}/.build/release/TaskManager", "#{app_path}/Contents/MacOS/TaskManager")
+    FileUtils.cp("#{source_dir}/Resources/AppIcon.icns", "#{app_path}/Contents/Resources/AppIcon.icns")
 
     File.write("#{app_path}/Contents/Info.plist", <<~XML)
       <?xml version="1.0" encoding="UTF-8"?>
@@ -59,6 +60,8 @@ cask "task-manager" do
       <dict>
           <key>CFBundleExecutable</key>
           <string>TaskManager</string>
+          <key>CFBundleIconFile</key>
+          <string>AppIcon</string>
           <key>CFBundleIdentifier</key>
           <string>com.miguel.taskmanager</string>
           <key>CFBundleName</key>
