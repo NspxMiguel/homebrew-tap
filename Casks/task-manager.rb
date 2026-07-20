@@ -86,9 +86,8 @@ cask "task-manager" do
     ohai "Pronto! Task Manager compilado e instalado em #{app_path}"
   end
 
-  uninstall delete: "#{appdir}/TaskManager.app"
-
   zap trash: [
     "~/Library/Preferences/com.miguel.taskmanager.plist",
+    "#{appdir}/TaskManager.app",
   ]
 end
