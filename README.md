@@ -6,11 +6,11 @@ Tap pessoal do Homebrew.
 
 ```bash
 brew tap spxmiguel/tap
-brew install task-manager
+brew install --cask task-manager
 ```
 
-Compila direto na sua máquina (precisa só das Command Line Tools do Xcode, grátis — `xcode-select --install` se ainda não tiver). Por ser um build local, o Gatekeeper não bloqueia como "desenvolvedor não identificado", diferente de baixar um `.app` pronto sem assinatura da Apple.
-
 Depois é só abrir pelo Spotlight ou `/Applications/TaskManager.app` — o atalho global padrão é `⌘⎋` (Cmd+Esc), configurável dentro do app na aba Ajustes.
+
+O app não tem assinatura paga da Apple (sem custo de licença de desenvolvedor). O cask já cuida de remover a quarentena e reassinar localmente depois de instalar, então não deve aparecer aviso de "desenvolvedor não identificado" do Gatekeeper.
 
 Código-fonte: https://github.com/spxmiguel/mac-task-manager
