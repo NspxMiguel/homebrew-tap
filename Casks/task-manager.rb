@@ -1,6 +1,6 @@
 cask "task-manager" do
-  version "1.1.1"
-  sha256 "df8d034ce7d571e7a5fa26b423e0c4f939f423def287590d7afd2a10efba5f82"
+  version "1.2.0"
+  sha256 "29b0b85726ca9ed485e9dc1bcc33446ee6975ada189043a5762ed98351f733ca"
 
   # Baixa o CODIGO-FONTE (nao um binario pronto) e compila na maquina de
   # quem instala. Build local = sem atributo de "quarantine" no binario
