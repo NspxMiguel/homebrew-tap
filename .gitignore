@@ -1,0 +1,16 @@
+# Sistema operacional
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Ruby / Homebrew
+*.gem
+.bundle/
+vendor/bundle/
+Gemfile.lock
+
+# Editores
+.vscode/
+.idea/
+*.swp
