@@ -5,10 +5,10 @@ cask "task-manager" do
   # Baixa o CODIGO-FONTE (nao um binario pronto) e compila na maquina de
   # quem instala. Build local = sem atributo de "quarantine" no binario
   # final = sem aviso de Gatekeeper, e sem precisar de Developer ID pago.
-  url "https://github.com/spxmiguel/mac-task-manager/archive/refs/tags/v#{version}.tar.gz"
+  url "https://github.com/NspxMiguel/mac-task-manager/archive/refs/tags/v#{version}.tar.gz"
   name "Task Manager"
   desc "Gerenciador de tarefas nativo para macOS, estilo Windows 11 (compila na sua maquina)"
-  homepage "https://github.com/spxmiguel/mac-task-manager"
+  homepage "https://github.com/NspxMiguel/mac-task-manager"
 
   depends_on macos: :ventura
 

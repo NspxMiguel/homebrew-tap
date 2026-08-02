@@ -1,17 +1,17 @@
-# spxmiguel/homebrew-tap
+# NspxMiguel/homebrew-tap
 
 Tap pessoal do Homebrew.
 
 ## Instalar o Task Manager
 
 ```bash
-brew tap spxmiguel/tap            # adiciona este repositório como fonte de pacotes do Homebrew
+brew tap NspxMiguel/tap            # adiciona este repositório como fonte de pacotes do Homebrew
 brew install --cask task-manager  # baixa o código-fonte e compila o app na sua máquina
 ```
 
 O que o `brew install --cask task-manager` faz, passo a passo:
 
-1. Baixa o código-fonte do [mac-task-manager](https://github.com/spxmiguel/mac-task-manager) (não um binário pronto)
+1. Baixa o código-fonte do [mac-task-manager](https://github.com/NspxMiguel/mac-task-manager) (não um binário pronto)
 2. Confere se você tem as Command Line Tools do Xcode (gratuitas — não precisa de conta paga de desenvolvedor). Se não tiver, já dispara `xcode-select --install` e espera terminar sozinho
 3. Compila o app com `swift build` assim que as ferramentas estão prontas
 4. Monta o `.app`, assina localmente e copia para `/Applications`
@@ -22,7 +22,7 @@ Depois é só abrir pelo Spotlight ou `/Applications/TaskManager.app` — o atal
 
 > Primeira vez usando esta tap? O Homebrew pode pedir para confiar nela antes de instalar (trava de segurança padrão para taps de terceiros):
 > ```bash
-> brew trust --cask spxmiguel/tap/task-manager
+> brew trust --cask NspxMiguel/tap/task-manager
 > ```
 
-Código-fonte: https://github.com/spxmiguel/mac-task-manager
+Código-fonte: https://github.com/NspxMiguel/mac-task-manager
