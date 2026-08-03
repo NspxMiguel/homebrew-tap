@@ -1,6 +1,6 @@
 cask "claude-remote-control" do
-  version "0.6.2"
-  sha256 "f3e01e6307e402de6c695ed18930d50a9b8e66ffb84e18f8f80ec710544f70a5"
+  version "0.6.3"
+  sha256 "b24bfde70458d2fa8de0b8e8a54b0ca6189544be3bbdc6cf5720ce57e45415a4"
 
   # Downloads the SOURCE (not a prebuilt binary) and compiles it on the
   # installing machine. A local build means no quarantine attribute on the
