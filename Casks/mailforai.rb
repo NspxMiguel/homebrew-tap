@@ -62,16 +62,12 @@ cask "mailforai" do
     ohai "Pronto. Rode 'mailforai setup' pra configurar a caixa, e abra o MailForAI."
   end
 
-  # `uninstall` nao pode conviver com `stage_only` — o Homebrew recusa o cask
-  # inteiro. A remocao do que o postflight criou vai aqui.
-  uninstall_postflight do
-    FileUtils.rm_rf "#{appdir}/MailForAI.app"
-    FileUtils.rm_f HOMEBREW_PREFIX/"bin/mailforai"
-  end
-
-  # `~/.mailforai` guarda a fila e o historico: so sai no `brew zap`, nunca
-  # numa desinstalacao comum.
+  # Com `stage_only` o Homebrew recusa qualquer outro artefato ativavel —
+  # `uninstall` e `uninstall_postflight` inclusive. O que o postflight criou
+  # sai no `brew zap`, e o caveat abaixo avisa disso.
   zap trash: [
+    "#{appdir}/MailForAI.app",
+    "#{HOMEBREW_PREFIX}/bin/mailforai",
     "~/.mailforai",
     "~/Library/Preferences/dev.nspx.mailforai.plist",
   ]
@@ -82,5 +78,8 @@ cask "mailforai" do
 
     Proximo passo:
       mailforai setup
+
+    Pra remover tudo (app, comando, fila e historico):
+      brew zap --cask mailforai
   EOS
 end
