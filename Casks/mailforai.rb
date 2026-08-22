@@ -1,6 +1,6 @@
 cask "mailforai" do
-  version "0.4.0"
-  sha256 "6ab2663e25e91ed6d06fb58a602d3dc034feaabe271b03ae942c94ca310da55d"
+  version "0.5.0"
+  sha256 "e81461e81f8d56e69378344d06aeac25b20bcde913cc4cf60ffc1160bfba525f"
 
   # Baixa o CODIGO-FONTE e compila na maquina de quem instala. Build local =
   # sem atributo de quarentena no binario final = sem aviso de Gatekeeper, e
