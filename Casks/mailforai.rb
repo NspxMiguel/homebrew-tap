@@ -1,6 +1,6 @@
 cask "mailforai" do
-  version "0.6.0"
-  sha256 "716bcde2a6fcf0819abccae15e1f974998483fd1f2c19333590a2e5793722557"
+  version "0.6.1"
+  sha256 "4883b3194f80ae5f7b6c571dc1df9d7ca7a6ee6eb029f635bde2081b42fb685a"
 
   # Baixa o CODIGO-FONTE e compila na maquina de quem instala. Build local =
   # sem atributo de quarentena no binario final = sem aviso de Gatekeeper, e
@@ -11,6 +11,9 @@ cask "mailforai" do
   homepage "https://github.com/NspxMiguel/MailForAI"
 
   depends_on macos: :ventura
+  # As notificacoes saem com o icone do MailForAI por aqui. Sem ele, o macOS
+  # mostra o icone do Editor de Scripts e o aviso parece vir de outro programa.
+  depends_on formula: "terminal-notifier"
 
   # Nada pronto pra "instalar": o postflight compila o app e liga o CLI.
   stage_only true
