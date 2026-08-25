@@ -95,10 +95,14 @@ cask "nanobridge" do
     ].compact.map(&:to_s).find { |candidate| File.executable?(candidate) }
 
     if claude
+      # `ohai` e as outras ajudantes de saida do Homebrew nao existem dentro de
+      # uninstall_postflight: chamar uma delas levanta NoMethodError no meio da
+      # desinstalacao, que para depois de ja ter apagado o binario e antes de
+      # limpar o Caskroom — e o brew passa a achar que ainda esta instalado.
       removed = system_command(claude.to_s,
                                args: ["mcp", "remove", "nanobridge", "--scope", "user"],
                                print_stderr: false, must_succeed: false).success?
-      ohai "Servidor MCP desregistrado do Claude Code." if removed
+      puts "==> Servidor MCP desregistrado do Claude Code." if removed
     end
   end
 
