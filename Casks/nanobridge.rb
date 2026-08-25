@@ -1,6 +1,6 @@
 cask "nanobridge" do
-  version "0.1.1"
-  sha256 "459165bbea3ed802db1cafe4d11122069f8fe63bd0a580d0ff036a1bc731f26c"
+  version "0.1.2"
+  sha256 "62b6adb7df80dd0233f17c25ddf92ad9d7f84bbb7287e7d80ad3775590075f08"
 
   # Mesmo padrao dos outros casks deste tap: baixa o CODIGO-FONTE e monta na
   # maquina de quem instala. Aqui nao ha binario pra compilar — o que se monta
@@ -82,6 +82,24 @@ cask "nanobridge" do
     FileUtils.rm(link) if File.symlink?(link) || File.exist?(link)
     prefix = "#{HOMEBREW_PREFIX}/opt/nanobridge"
     FileUtils.rm_r(prefix) if File.exist?(prefix)
+
+    # Registro de MCP apontando pro que acabou de sumir nao e resto inofensivo:
+    # o Claude Code tenta subir o servidor toda sessao e mostra "Failed to
+    # connect" para sempre. Quem registrou desregistra.
+    claude = [
+      which("claude"),
+      "#{Dir.home}/.local/bin/claude",
+      "#{Dir.home}/.claude/local/claude",
+      "#{HOMEBREW_PREFIX}/bin/claude",
+      "/usr/local/bin/claude",
+    ].compact.map(&:to_s).find { |candidate| File.executable?(candidate) }
+
+    if claude
+      removed = system_command(claude.to_s,
+                               args: ["mcp", "remove", "nanobridge", "--scope", "user"],
+                               print_stderr: false, must_succeed: false).success?
+      ohai "Servidor MCP desregistrado do Claude Code." if removed
+    end
   end
 
   zap trash: [
