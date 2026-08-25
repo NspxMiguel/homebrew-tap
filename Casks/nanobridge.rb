@@ -11,6 +11,7 @@ cask "nanobridge" do
   desc "Geracao de imagens do Nano Banana (Gemini) como CLI e servidor MCP"
   homepage "https://github.com/NspxMiguel/NanoBridge"
 
+  depends_on formula: "python@3.13"
   depends_on macos: :monterey
 
   # Sem artefato pronto: o postflight monta o venv e publica o CLI no PATH.
@@ -21,26 +22,15 @@ cask "nanobridge" do
     prefix = "#{HOMEBREW_PREFIX}/opt/nanobridge"
     venv = "#{prefix}/libexec"
 
-    # Python 3.11+ e requisito duro: o codigo usa "str | None" em tempo de
-    # execucao e sintaxe que 3.10 nao aceita.
-    python = %w[python3.13 python3.12 python3.11 python3].find do |candidate|
-      path = which(candidate)
-      next false if path.nil?
+    # Python vem do proprio Homebrew (depends_on acima), nao do sistema: o
+    # /usr/bin/python3 do macOS ainda e 3.9 e o codigo pede 3.11+.
+    python = "#{HOMEBREW_PREFIX}/opt/python@3.13/bin/python3.13"
+    odie "NanoBridge precisa de python@3.13 (brew install python@3.13)" unless File.executable?(python)
 
-      system_command(path.to_s,
-                     args:         ["-c",
-                                    "import sys; raise SystemExit(0 if sys.version_info[:2] >= (3, 11) else 1)"],
-                     print_stderr: false).success?
-    end
-
-    if python.nil?
-      odie "NanoBridge precisa de Python 3.11 ou mais novo. Instale com: brew install python@3.13"
-    end
-
-    ohai "Montando o ambiente do NanoBridge com #{python}…"
-    FileUtils.rm_r(venv)
+    ohai "Montando o ambiente do NanoBridge…"
+    FileUtils.rm_r(venv) if File.exist?(venv)
     FileUtils.mkdir_p(prefix)
-    system_command which(python).to_s, args: ["-m", "venv", venv]
+    system_command python, args: ["-m", "venv", venv]
     system_command "#{venv}/bin/python", args: ["-m", "pip", "install", "--quiet", "--upgrade", "pip"]
     system_command "#{venv}/bin/python", args: ["-m", "pip", "install", "--quiet", source_dir]
 
@@ -56,7 +46,16 @@ cask "nanobridge" do
     end
 
     # Registrar o servidor MCP e opcional: so acontece se o Claude Code existir.
-    claude = which("claude")
+    # O PATH do postflight e enxuto, entao os lugares habituais entram na busca
+    # a mao — sem isso a instalacao termina "limpa" sem ter registrado nada.
+    claude = [
+      which("claude"),
+      "#{Dir.home}/.local/bin/claude",
+      "#{Dir.home}/.claude/local/claude",
+      "#{HOMEBREW_PREFIX}/bin/claude",
+      "/usr/local/bin/claude",
+    ].compact.map(&:to_s).find { |candidate| File.executable?(candidate) }
+
     if claude
       system_command claude.to_s, args: ["mcp", "remove", "nanobridge", "--scope", "user"],
                                   print_stderr: false, must_succeed: false
@@ -64,15 +63,25 @@ cask "nanobridge" do
                                   args: ["mcp", "add", "nanobridge", "--scope", "user", "--",
                                          "#{venv}/bin/nanobridge", "mcp"],
                                   print_stderr: false, must_succeed: false).success?
-      ohai "Servidor MCP registrado no Claude Code." if registered
+      if registered
+        ohai "Servidor MCP registrado no Claude Code."
+      else
+        opoo "Nao consegui registrar o MCP. Rode:"
+        opoo "  claude mcp add nanobridge --scope user -- #{venv}/bin/nanobridge mcp"
+      end
+    else
+      opoo "Claude Code nao encontrado. Para registrar o MCP depois, rode:"
+      opoo "  claude mcp add nanobridge --scope user -- #{venv}/bin/nanobridge mcp"
     end
 
     ohai "Pronto. Rode: nanobridge doctor"
   end
 
   uninstall_postflight do
-    FileUtils.rm("#{HOMEBREW_PREFIX}/bin/nanobridge")
-    FileUtils.rm_r("#{HOMEBREW_PREFIX}/opt/nanobridge")
+    link = "#{HOMEBREW_PREFIX}/bin/nanobridge"
+    FileUtils.rm(link) if File.symlink?(link) || File.exist?(link)
+    prefix = "#{HOMEBREW_PREFIX}/opt/nanobridge"
+    FileUtils.rm_r(prefix) if File.exist?(prefix)
   end
 
   zap trash: [
