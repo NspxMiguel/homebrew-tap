@@ -15,6 +15,18 @@ O preço é o tempo: a instalação leva alguns minutos e exige as Command Line 
 > brew trust --cask NspxMiguel/tap/<nome-do-cask>
 > ```
 
+## Pacotes
+
+| Pacote | Instalação | O que é |
+| --- | --- | --- |
+| [Claude Remote Control](https://github.com/NspxMiguel/claude-remote-control) | `brew install --cask claude-remote-control` | Controle o Claude Code e outros agentes pelo celular. |
+| [Task Manager](https://github.com/NspxMiguel/mac-task-manager) | `brew install --cask task-manager` | Gerenciador de tarefas nativo para macOS. |
+| [MacTray](https://github.com/NspxMiguel/MacTray) | `brew install --cask mactray` | Esconde os ícones que não cabem na barra de menus. |
+| [MailForAI](https://github.com/NspxMiguel/MailForAI) | `brew install --cask mailforai` | Caixa de e-mail com fila de aprovação para agentes de IA. |
+| [NanoBridge](https://github.com/NspxMiguel/NanoBridge) | `brew install --cask nanobridge` | Geração de imagens Gemini para CLI e MCP. |
+
+Todos baixam o código-fonte e montam o app ou ambiente localmente.
+
 ## Claude Remote Control
 
 Controlar o Claude Code pelo celular. Um chat PWA que fala com o seu próprio Mac pela rede local ou pelo Tailscale, aprova permissão de ferramenta à distância e espelha ao vivo as sessões do Claude Desktop. Também dirige o Antigravity e qualquer agente ACP (Cursor, Gemini CLI).
@@ -50,6 +62,34 @@ brew install --cask task-manager
 3. Compila com `swift build`
 4. Monta o `.app`, assina localmente e copia pra `/Applications`
 
-Abre pelo Spotlight ou por `/Applications/TaskManager.app` — o atalho global padrão é `⌘⎋` (Cmd+Esc), configurável dentro do app na aba Ajustes. O ícone na barra de menu abre/fecha com clique esquerdo, e tem `Sair` no clique direito.
+Abre pelo Spotlight ou por `/Applications/TaskManager.app` — o atalho global padrão é `⌘⇧⎋` (Cmd+Shift+Esc), configurável dentro do app na aba Ajustes. O ícone na barra de menu abre/fecha com clique esquerdo, e tem `Sair` no clique direito.
 
 Código-fonte: https://github.com/NspxMiguel/mac-task-manager
+
+## MacTray
+
+Esconde os ícones que não cabem na barra de menus, mantendo-os acessíveis num painel próprio.
+
+```bash
+brew install --cask mactray
+```
+
+Na primeira abertura, conceda a permissão de Acessibilidade pedida pelo macOS.
+
+## MailForAI
+
+Uma caixa de e-mail para agentes de IA, com revisões na barra de menus antes de qualquer ação sensível.
+
+```bash
+brew install --cask mailforai
+mailforai setup
+```
+
+## NanoBridge
+
+Expõe a geração de imagens do Gemini como CLI e servidor MCP para agentes.
+
+```bash
+brew install --cask nanobridge
+nanobridge doctor
+```
