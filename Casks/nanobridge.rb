@@ -1,6 +1,6 @@
 cask "nanobridge" do
-  version "0.6.0"
-  sha256 "f6471ea01bf0bca073967391d450182ffd7e73220aaba9cd984026e8e99a8d69"
+  version "0.7.0"
+  sha256 "c23447f4ea2c8659a77fd4f2c7710846b26682370f93fc24afb689b34e1411be"
 
   # Mesmo padrao dos outros casks deste tap: baixa o CODIGO-FONTE e monta na
   # maquina de quem instala. Aqui nao ha binario pra compilar — o que se monta
@@ -32,7 +32,9 @@ cask "nanobridge" do
     FileUtils.mkdir_p(prefix)
     system_command python, args: ["-m", "venv", venv]
     system_command "#{venv}/bin/python", args: ["-m", "pip", "install", "--quiet", "--upgrade", "pip"]
-    system_command "#{venv}/bin/python", args: ["-m", "pip", "install", "--quiet", source_dir]
+    # Com o extra [3d]: quem instala pelo cask quer a ferramenta inteira, e
+    # mesh/turntable/sprite3d dependem de NumPy, trimesh e gradio_client.
+    system_command "#{venv}/bin/python", args: ["-m", "pip", "install", "--quiet", "#{source_dir}[3d]"]
 
     FileUtils.mkdir_p("#{HOMEBREW_PREFIX}/bin")
     FileUtils.ln_sf("#{venv}/bin/nanobridge", "#{HOMEBREW_PREFIX}/bin/nanobridge")
