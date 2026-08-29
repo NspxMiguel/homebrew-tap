@@ -1,6 +1,6 @@
 cask "nanobridge" do
-  version "0.8.1"
-  sha256 "20a6a3e78d086916cdc33a5d8507055736a9b9ea5465f77893832213f0d2c7a0"
+  version "0.8.2"
+  sha256 "79f3c707d994ea0633fc78c2cc23d3ab29ba56f49379f8dae99756ff60c672a8"
 
   # Mesmo padrao dos outros casks deste tap: baixa o CODIGO-FONTE e monta na
   # maquina de quem instala. Aqui nao ha binario pra compilar — o que se monta
