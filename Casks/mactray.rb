@@ -1,6 +1,6 @@
 cask "mactray" do
-  version "1.1.3"
-  sha256 "7d13f8086eeaf0ca39db3599e2e0e51583739732fd54963e4066786708f82613"
+  version "1.3.0"
+  sha256 "dfb8853a450b8a58c901b98e4d218b0221618ae4d6ef18bca8b92453476eb736"
 
   # Baixa o CODIGO-FONTE e compila na maquina de quem instala. Build local =
   # sem atributo de quarentena no binario final = sem aviso de Gatekeeper, e
