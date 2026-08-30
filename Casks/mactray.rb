@@ -52,7 +52,15 @@ cask "mactray" do
     # Arquivo copiado do tarball (o icone, por exemplo) pode chegar marcado —
     # limpa o bundle inteiro antes de assinar.
     system_command "/usr/bin/xattr", args: ["-cr", app_path]
-    system_command "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", app_path]
+    # build.sh ja assina, e numa maquina que tenha o certificado local ele usa esse
+    # certificado — o que prende a permissao de Acessibilidade ao certificado em vez de
+    # ao hash do binario. Re-assinar ad-hoc aqui desfaria isso e faria o macOS pedir a
+    # permissao de novo a cada atualizacao. So assina quem ainda nao esta assinado.
+    signed = system_command("/usr/bin/codesign", args: ["-dv", app_path],
+                            print_stderr: false).merged_output.include?("Authority=")
+    unless signed
+      system_command "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", app_path]
+    end
 
     ohai "Pronto! MacTray instalado em #{app_path}. Abra o app e libere a Acessibilidade."
   end
