@@ -52,13 +52,23 @@ cask "mactray" do
     # Arquivo copiado do tarball (o icone, por exemplo) pode chegar marcado —
     # limpa o bundle inteiro antes de assinar.
     system_command "/usr/bin/xattr", args: ["-cr", app_path]
-    # build.sh ja assina, e numa maquina que tenha o certificado local ele usa esse
-    # certificado — o que prende a permissao de Acessibilidade ao certificado em vez de
-    # ao hash do binario. Re-assinar ad-hoc aqui desfaria isso e faria o macOS pedir a
-    # permissao de novo a cada atualizacao. So assina quem ainda nao esta assinado.
-    signed = system_command("/usr/bin/codesign", args: ["-dv", app_path],
-                            print_stderr: false).merged_output.include?("Authority=")
-    unless signed
+    # Assinatura ad-hoc muda o hash do binario a cada build, e o requisito designado do
+    # app e esse hash: o macOS trata cada versao como um app diferente e joga fora a
+    # permissao de Acessibilidade. Quem tem um certificado local assina com ele, o que
+    # prende o requisito ao certificado e faz a permissao sobreviver as atualizacoes.
+    # Quem nao tem — o caso normal de quem instala pelo tap — segue no ad-hoc.
+    sign_keychain = Pathname.new(Dir.home)/"Library/Keychains/nspx-codesign.keychain-db"
+    sign_id = "NSPX Local Code Signing"
+    has_id = sign_keychain.exist? && system_command("/usr/bin/security",
+                                                    args: ["find-identity", "-p", "codesigning",
+                                                           sign_keychain.to_s],
+                                                    print_stderr: false)
+                                     .merged_output.include?(sign_id)
+    if has_id
+      system_command "/usr/bin/codesign",
+                     args: ["--force", "--deep", "--sign", sign_id,
+                            "--keychain", sign_keychain.to_s, app_path]
+    else
       system_command "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", app_path]
     end
 
