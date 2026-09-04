@@ -1,13 +1,16 @@
 cask "forgetray" do
   version "0.1.0"
-  sha256 "2e5f3287bd40fac0295a2ba1e764a6a1bfc4493e69c9e36eb3058b72b0925a94"
 
-  # Forge is a private repo, so the source download needs GitHub auth -
-  # CurlGitHubPrivateRepositoryDownloadStrategy adds it using
-  # HOMEBREW_GITHUB_API_TOKEN (set that from `gh auth token` once, and any
-  # `brew install`/`reinstall` of this cask picks it up).
-  url "https://github.com/NspxMiguel/forge/archive/refs/tags/v#{version}.tar.gz",
-      using: CurlGitHubPrivateRepositoryDownloadStrategy
+  # Forge is a private repo, so a plain archive URL 404s for anyone without
+  # an auth header attached. `using: :git` clones instead, going through
+  # the system's normal git credential storage (already set up here via
+  # `gh auth login` -> osxkeychain) rather than needing a token wired
+  # through Homebrew separately. `revision:` pins the exact commit the tag
+  # pointed at, so a moved tag can't silently change what gets installed.
+  url "https://github.com/NspxMiguel/forge.git",
+      using:    :git,
+      tag:      "v#{version}",
+      revision: "c662445c28e5c17ea9d65b222b9048416dba816e"
   name "ForgeTray"
   desc "Barra de menu para o setup de streaming do Forge (compila na sua maquina)"
   homepage "https://github.com/NspxMiguel/forge"
