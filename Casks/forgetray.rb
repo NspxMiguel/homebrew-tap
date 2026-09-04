@@ -1,5 +1,5 @@
 cask "forgetray" do
-  version "0.1.0"
+  version "0.1.1"
 
   # Forge is a private repo, so a plain archive URL 404s for anyone without
   # an auth header attached. `using: :git` clones instead, going through
@@ -10,7 +10,7 @@ cask "forgetray" do
   url "https://github.com/NspxMiguel/forge.git",
       using:    :git,
       tag:      "v#{version}",
-      revision: "c662445c28e5c17ea9d65b222b9048416dba816e"
+      revision: "3a3a4f109724d9c989ccbd679a58977d35336e7b"
   name "ForgeTray"
   desc "Barra de menu para o setup de streaming do Forge (compila na sua maquina)"
   homepage "https://github.com/NspxMiguel/forge"
