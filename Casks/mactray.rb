@@ -64,11 +64,20 @@ cask "mactray" do
                                                            sign_keychain.to_s],
                                                     print_stderr: false)
                                      .merged_output.include?(sign_id)
+    signed_locally = false
     if has_id
-      system_command "/usr/bin/codesign",
-                     args: ["--force", "--deep", "--sign", sign_id,
-                            "--keychain", sign_keychain.to_s, app_path]
-    else
+      # must_succeed: false — sem isso o system_command lança exceção no primeiro
+      # codesign que falhar, e o fallback ad-hoc logo abaixo nunca roda. A identidade
+      # pode aparecer na listagem (has_id) e ainda assim ser recusada pelo codesign de
+      # verdade — por exemplo, um chaveiro sem confiança marcada pra assinatura de
+      # código — e foi exatamente isso que quebrou a instalação em 11/09/2026.
+      result = system_command("/usr/bin/codesign",
+                              args: ["--force", "--deep", "--sign", sign_id,
+                                     "--keychain", sign_keychain.to_s, app_path],
+                              print_stderr: false, must_succeed: false)
+      signed_locally = result.success?
+    end
+    unless signed_locally
       system_command "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", app_path]
     end
 
