@@ -67,10 +67,12 @@ cask "recap" do
                                      .merged_output.include?(sign_id)
     signed_locally = false
     if has_id
+      # must_succeed: false — sem isso o system_command lança exceção no primeiro
+      # codesign que falhar, e o fallback ad-hoc logo abaixo nunca roda.
       result = system_command("/usr/bin/codesign",
                               args: ["--force", "--deep", "--sign", sign_id,
                                      "--keychain", sign_keychain.to_s, app_path],
-                              print_stderr: false)
+                              print_stderr: false, must_succeed: false)
       signed_locally = result.success?
     end
     unless signed_locally
