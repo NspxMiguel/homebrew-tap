@@ -22,7 +22,6 @@ O preço é o tempo: a instalação leva alguns minutos e exige as Command Line 
 | [Task Manager](https://github.com/NspxMiguel/mac-task-manager) | `brew install --cask task-manager` | Gerenciador de tarefas nativo para macOS. |
 | [MacTray](https://github.com/NspxMiguel/MacTray) | `brew install --cask mactray` | Esconde os ícones que não cabem na barra de menus. |
 | [MailForAI](https://github.com/NspxMiguel/MailForAI) | `brew install --cask mailforai` | Caixa de e-mail com fila de aprovação para agentes de IA. |
-| [MyMailForAI](https://github.com/NspxMiguel/MyMailForAI) | `brew install --cask mymailforai` | A sua própria caixa de e-mail, com acesso total para a IA e o freio na barra de menus. |
 | [NanoBridge](https://github.com/NspxMiguel/NanoBridge) | `brew install --cask nanobridge` | Geração de imagens Gemini para CLI e MCP. |
 
 Todos baixam o código-fonte e montam o app ou ambiente localmente.
