@@ -1,11 +1,11 @@
 cask "scrollback" do
   version "1.0.1"
-  sha256 "253af521e3d540c57b82b0e4367fa4cab21585f003f3bfed9949840ec28b7126"
+  sha256 "c868e23f511a2cf7b007e70a5117cd2c6bc380491d1656c62ed9e9b414b716d4"
 
   # Downloads the SOURCE CODE and compiles it on the installing machine. A
   # local build carries no quarantine attribute, so Gatekeeper never
   # complains — no paid Developer ID needed.
-  url "https://github.com/NspxMiguel/ScrollBack/archive/refs/tags/v#{version}.tar.gz"
+  url "https://github.com/NspxMiguel/ScrollBack/releases/download/v#{version}/ScrollBack-#{version}.tar.gz"
   name "ScrollBack"
   desc "Reverses mouse scroll (not trackpad) and revives side buttons macOS drops"
   homepage "https://github.com/NspxMiguel/ScrollBack"
