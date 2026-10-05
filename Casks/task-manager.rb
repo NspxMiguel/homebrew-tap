@@ -1,11 +1,11 @@
 cask "task-manager" do
   version "1.3.3"
-  sha256 "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
+  sha256 "7b0efea198e36a66f82dc38cf3749ef42652597186e07849370eb964de2ae7bb"
 
   # Baixa o CODIGO-FONTE (nao um binario pronto) e compila na maquina de
   # quem instala. Build local = sem atributo de "quarantine" no binario
   # final = sem aviso de Gatekeeper, e sem precisar de Developer ID pago.
-  url "https://github.com/NspxMiguel/mac-task-manager/archive/refs/tags/v#{version}.tar.gz"
+  url "https://github.com/NspxMiguel/mac-task-manager/releases/download/v#{version}/mac-task-manager-#{version}.tar.gz"
   name "Task Manager"
   desc "Gerenciador de tarefas nativo para macOS, estilo Windows 11 (compila na sua maquina)"
   homepage "https://github.com/NspxMiguel/mac-task-manager"
