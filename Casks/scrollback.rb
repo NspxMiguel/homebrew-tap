@@ -1,6 +1,6 @@
 cask "scrollback" do
-  version "1.0.0"
-  sha256 "7630823d2f9be9479b7679196da19f543d3616d2e83ab315ba2998cfba9a7bef"
+  version "1.0.1"
+  sha256 "253af521e3d540c57b82b0e4367fa4cab21585f003f3bfed9949840ec28b7126"
 
   # Downloads the SOURCE CODE and compiles it on the installing machine. A
   # local build carries no quarantine attribute, so Gatekeeper never
@@ -79,7 +79,7 @@ cask "scrollback" do
       system_command "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", app_path]
     end
 
-    ohai "Done! ScrollBack installed at #{app_path}. Open it and grant Accessibility."
+    ohai "Done! ScrollBack installed at #{app_path}. Open it and grant Accessibility and Input Monitoring."
   end
 
   uninstall_postflight do
@@ -95,7 +95,8 @@ cask "scrollback" do
   caveats <<~EOS
     ScrollBack compiles on your machine (~1 min) and lives in the menu bar.
 
-    On first launch it asks for Accessibility permission — without it, it
-    can't see scroll or mouse button events at all.
+    On first launch it asks for Accessibility (to reverse the wheel) and
+    Input Monitoring (for the side buttons). It starts on its own as soon as
+    they are granted; no relaunch needed.
   EOS
 end
