@@ -1,80 +1,118 @@
-# NspxMiguel/homebrew-tap
+<h1 align="center">NspxMiguel/homebrew-tap</h1>
 
-Tap pessoal do Homebrew.
+<p align="center">
+  <b>A personal Homebrew tap. Every cask downloads the source and builds it on your machine.</b>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <img alt="Platform: macOS" src="https://img.shields.io/badge/platform-macOS-lightgrey?logo=apple&logoColor=white">
+  <img alt="Homebrew casks" src="https://img.shields.io/badge/homebrew-casks-FBB040?logo=homebrew&logoColor=white">
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#packages">Packages</a> ·
+  <a href="#task-manager">Task Manager</a> ·
+  <a href="#mactray">MacTray</a> ·
+  <a href="#mailforai">MailForAI</a> ·
+  <a href="#nanobridge">NanoBridge</a> ·
+  <a href="docs/INDEX.md">Docs</a>
+</p>
+
+## Install
 
 ```bash
-brew tap NspxMiguel/tap   # adiciona este repositório como fonte de pacotes do Homebrew
+brew tap NspxMiguel/tap   # adds this repository as a Homebrew package source
 ```
 
-Todo cask daqui **baixa o código-fonte e compila na sua máquina**, em vez de puxar um binário pronto. Build local não carrega o atributo de quarentena do download, então o Gatekeeper não bloqueia com aviso de "desenvolvedor não identificado" — e ninguém precisa de conta paga de desenvolvedor pra isso.
+Every cask here **downloads the source code and builds it on your machine** instead of pulling a prebuilt binary. A local build carries no download quarantine attribute, so Gatekeeper does not block it with an "unidentified developer" warning, and no paid developer account is needed.
 
-O preço é o tempo: a instalação leva alguns minutos e exige as Command Line Tools do Xcode (gratuitas). Se você não tiver, o próprio instalador dispara o `xcode-select --install` e espera terminar.
+The price is time: installing takes a few minutes and needs the Xcode Command Line Tools (free). If you do not have them, the installer runs `xcode-select --install` and waits for it to finish.
 
-> Primeira vez usando esta tap? O Homebrew pede pra confiar nela antes de instalar (trava padrão pra taps de terceiros):
+> First time using this tap? Homebrew asks you to trust it before installing (the standard guard for third-party taps):
 > ```bash
-> brew trust --cask NspxMiguel/tap/<nome-do-cask>
+> brew trust --cask NspxMiguel/tap/<cask-name>
 > ```
 
-## Pacotes
+## Packages
 
-| Pacote | Instalação | O que é |
+| Package | Install | What it is |
 | --- | --- | --- |
-| [Task Manager](https://github.com/NspxMiguel/mac-task-manager) | `brew install --cask task-manager` | Gerenciador de tarefas nativo para macOS. |
-| [MacTray](https://github.com/NspxMiguel/MacTray) | `brew install --cask mactray` | Esconde os ícones que não cabem na barra de menus. |
-| [MailForAI](https://github.com/NspxMiguel/MailForAI) | `brew install --cask mailforai` | Caixa de e-mail com fila de aprovação para agentes de IA. |
-| [NanoBridge](https://github.com/NspxMiguel/NanoBridge) | `brew install --cask nanobridge` | Geração de imagens Gemini para CLI e MCP. |
+| [Task Manager](https://github.com/NspxMiguel/mac-task-manager) | `brew install --cask task-manager` | Native macOS task manager. |
+| [MacTray](https://github.com/NspxMiguel/MacTray) | `brew install --cask mactray` | Hides the icons that do not fit in the menu bar. |
+| [MailForAI](https://github.com/NspxMiguel/MailForAI) | `brew install --cask mailforai` | Mailbox with an approval queue for AI agents. |
+| [NanoBridge](https://github.com/NspxMiguel/NanoBridge) | `brew install --cask nanobridge` | Gemini image generation for the CLI and MCP. |
+| [Ebb](https://github.com/NspxMiguel/Ebb) | `brew install --cask ebb` | Deletes old email over IMAP so the mailbox never fills up. |
+| [ScrollBack](https://github.com/NspxMiguel/ScrollBack) | `brew install --cask scrollback` | Reverses mouse scroll (not trackpad) and revives side buttons macOS drops. |
 
-Todos baixam o código-fonte e montam o app ou ambiente localmente.
+All of them download the source and assemble the app or environment locally.
 
-## Task Manager
+<details>
+<summary><b>Task Manager</b></summary>
 
-Gerenciador de tarefas nativo pro macOS, no estilo do Windows 11.
+<a id="task-manager"></a>
+
+A native macOS task manager in the style of Windows 11.
 
 ```bash
 brew install --cask task-manager
 ```
 
-1. Baixa o código-fonte do [mac-task-manager](https://github.com/NspxMiguel/mac-task-manager)
-2. Confere (ou instala) as Command Line Tools
-3. Compila com `swift build`
-4. Monta o `.app`, assina localmente e copia pra `/Applications`
+1. Downloads the source of [mac-task-manager](https://github.com/NspxMiguel/mac-task-manager)
+2. Checks for (or installs) the Command Line Tools
+3. Builds with `swift build`
+4. Assembles the `.app`, signs it locally and copies it to `/Applications`
 
-Abre pelo Spotlight ou por `/Applications/TaskManager.app` — o atalho global padrão é `⌘⇧⎋` (Cmd+Shift+Esc), configurável dentro do app na aba Ajustes. O ícone na barra de menu abre/fecha com clique esquerdo, e tem `Sair` no clique direito.
+Open it from Spotlight or `/Applications/TaskManager.app`. The default global shortcut is `⌘⇧⎋` (Cmd+Shift+Esc), configurable in the app under Settings. The menu bar icon toggles it with a left click and has `Quit` on right click.
 
-Código-fonte: https://github.com/NspxMiguel/mac-task-manager
+Source: https://github.com/NspxMiguel/mac-task-manager
 
-## MacTray
+</details>
 
-Esconde os ícones que não cabem na barra de menus, mantendo-os acessíveis num painel próprio.
+<details>
+<summary><b>MacTray</b></summary>
+
+<a id="mactray"></a>
+
+Hides the icons that do not fit in the menu bar, keeping them reachable in a panel of their own.
 
 ```bash
 brew install --cask mactray
 ```
 
-Na primeira abertura, conceda a permissão de Acessibilidade pedida pelo macOS.
+On first launch, grant the Accessibility permission macOS asks for.
 
-## MailForAI
+</details>
 
-Uma caixa de e-mail para agentes de IA, com revisões na barra de menus antes de qualquer ação sensível.
+<details>
+<summary><b>MailForAI</b></summary>
+
+<a id="mailforai"></a>
+
+A mailbox for AI agents, with reviews in the menu bar before any sensitive action.
 
 ```bash
 brew install --cask mailforai
 mailforai setup
 ```
 
-## NanoBridge
+</details>
 
-Expõe a geração de imagens do Gemini como CLI e servidor MCP para agentes.
+<details>
+<summary><b>NanoBridge</b></summary>
+
+<a id="nanobridge"></a>
+
+Exposes Gemini image generation as a CLI and an MCP server for agents.
 
 ```bash
 brew install --cask nanobridge
 nanobridge doctor
 ```
 
----
+</details>
 
-## Documentação
+## Documentation
 
-Índice completo em [`docs/INDEX.md`](docs/INDEX.md).
-
-_Hub multi-repo: `~/Documents/Documentacao-Repos/INDEX.md` (atualizado 2026-08-31)._
+Full index in [`docs/INDEX.md`](docs/INDEX.md).
